@@ -1,12 +1,6 @@
-lanuage: java
+language: java
 jdk:
     - openjdk7
-
-script:
-    - export JADE_LIB=$TRAVIS_BUILD_DIR/lib
-    - export CLASSPATH=".:${JADE_LIB}/jade.jar:${JADE_LIB}/commons-codec/commons-codec-1.3.jar:${JADE_LIB}/jadeExamples.jar:${JADE_LIB}"
-    - export MAGIC_PATH=./bin
-    - export CLASSPATH=$CLASSPATH:${MAGIC_PATH}
-    - mkdir bin
-    - javac -d bin/ src/*/*.java
-    - java jade.Boot -agents Tester:maas.BookBuyerAgent
+group: stable
+dist: trusty
+os: linux
