@@ -1,5 +1,6 @@
 # project
 
-## Team Name
-* Name1 LastName1
-* Name2 LastName2
+## Zarvis
+* Rubanraj Ravichandran
+* Bouknify Yassine
+* Aniruddha Pal
