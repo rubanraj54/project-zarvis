@@ -33,6 +33,7 @@ public class RequestPerformer extends Behaviour {
 			cfp.setConversationId("book-trade");
 			cfp.setReplyWith("cfp"+System.currentTimeMillis()); // Unique value
 			myAgent.send(cfp);
+			System.out.println("book title sent to all available sellers");
 			// Prepare the template to get proposals
 			mt = MessageTemplate.and(MessageTemplate.MatchConversationId("book-trade"),
 					MessageTemplate.MatchInReplyTo(cfp.getReplyWith()));
@@ -44,6 +45,7 @@ public class RequestPerformer extends Behaviour {
 			if (reply != null) {
 				// Reply received
 				if (reply.getPerformative() == ACLMessage.PROPOSE) {
+					System.out.println("Received proposal from seller");
 					// This is an offer
 					int price = Integer.parseInt(reply.getContent());
 					if (bestSeller == null || price < bestPrice) {
@@ -57,10 +59,11 @@ public class RequestPerformer extends Behaviour {
 					// We received all replies
 					step = 2;
 				}
+				System.out.println("the best price is: " + bestPrice);
 			}
 			else 
 			{
-
+				System.out.println("No response from any seller");
 				block();
 			}
 			break;
@@ -76,6 +79,7 @@ public class RequestPerformer extends Behaviour {
 			mt = MessageTemplate.and(MessageTemplate.MatchConversationId("book-trade"),
 					MessageTemplate.MatchInReplyTo(order.getReplyWith()));
 			step = 3;
+			System.out.println("sent purchase order to best seller");
 			break;
 		case 3:
 			// Receive the purchase order reply

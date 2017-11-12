@@ -30,8 +30,8 @@ public class BookBuyerAgent extends Agent {
 			System.out.println("Trying to buy " + targetBookTitle);
 
 			// Add a TickerBehaviour that schedules a request to seller agents
-			// every 5 second
-			addBehaviour(new TickerBehaviour(this, 5000) {
+			// every 60 second
+			addBehaviour(new TickerBehaviour(this, 60000) {
 				protected void onTick() {
 					// Update the list of seller agents
 					DFAgentDescription template = new DFAgentDescription();

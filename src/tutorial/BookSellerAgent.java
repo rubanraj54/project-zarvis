@@ -15,6 +15,14 @@ public class BookSellerAgent extends Agent {
 
 	@Override
 	protected void setup() {
+		
+		// Create the catalogue
+		catalogue = new Hashtable();
+		catalogue.put("avatar", 123);
+		catalogue.put("avengers", 32);
+		catalogue.put("wonder woman", 354);
+		catalogue.put("last air bender", 234);
+		
 		DFAgentDescription agentDescription = new DFAgentDescription();
 		agentDescription.setName(getAID());
 		ServiceDescription serviceDescription = new ServiceDescription();
@@ -27,6 +35,12 @@ public class BookSellerAgent extends Agent {
 		} catch (FIPAException e) {
 			e.printStackTrace();
 		}
+		//adding offer request behavior, this behavior will keep on checking the incoming messages from the buyers
+		addBehaviour(new OfferRequestsServer(catalogue));
+		System.out.println("Offer request server behavior added successfully");
+		
+		// Add the behaviour serving purchase orders from buyer agents
+		addBehaviour(new PurchaseOrdersServer());
 	}
 
 	protected void takeDown() {
