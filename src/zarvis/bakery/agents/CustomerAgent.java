@@ -1,4 +1,4 @@
-package agents;
+package zarvis.bakery.agents;
 import java.util.Scanner;
 
 import jade.core.AID; 

@@ -1,4 +1,4 @@
-package agents;
+package zarvis.bakery.agents;
 import java.util.HashMap; import java.util.Map; import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour; import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
