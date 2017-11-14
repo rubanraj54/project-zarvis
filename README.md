@@ -1,8 +1,8 @@
 # project
 
 ## Team Name
-* Name1 LastName1
-* Name2 LastName2
+* Name1 LastName1 - [@githubusername](https://github.com/username)
+* Name2 LastName2 - [@githubusername](https://github.com/username)
 
 ## Howto run
 Just install gradle and run:
