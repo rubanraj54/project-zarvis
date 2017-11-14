@@ -24,12 +24,12 @@
       "dough_prep_tables": 2,
       "ovens": [
         {
-          "id": 1,
+          "uid": 1,
           "cooling_rate": 1,
           "heating_rate": 1
         },
         {
-          "oven_id": 2,
+          "uid": 2,
           "cooling_rate": 1,
           "heating_rate": 1
         }
@@ -66,7 +66,7 @@
       ],
       "trucks": [
         {
-          "id": 1,
+          "uid": 1,
           "load_capacity": 30,
           "location": {
             "x": 0,
@@ -74,7 +74,7 @@
           }
         },
         {
-          "id": 2,
+          "uid": 2,
           "load_capacity": 30,
           "location": {
             "x": 0,
