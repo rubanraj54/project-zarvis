@@ -7,54 +7,54 @@
         "x": 0,
         "y": 0
       },
-      "kneading-machines": 2,
-      "dough-prep-tables": 2,
+      "kneading_machines": 2,
+      "dough_prep_tables": 2,
       "ovens": [
         {
           "id": 1,
-          "cooling-rate": 1,
-          "heating-rate": 1
+          "cooling_rate": 1,
+          "heating_rate": 1
         },
         {
-          "oven-id": 2,
-          "cooling-rate": 1,
-          "heating-rate": 1
+          "oven_id": 2,
+          "cooling_rate": 1,
+          "heating_rate": 1
         }
       ],
       "products": [
         {
           "id": "bread",
-          "dough-prep-time": 15,
-          "resting-time": 15,
-          "item-prep-time": 15,
-          "breads-per-oven": 15,
-          "baking-time": 15,
-          "baking-temp": 230,
-          "cooling-rate": 1,
-          "boxing-temp": 60,
-          "breads-per-box": 20,
-          "production-cost": 10,
-          "sales-price": 15
+          "dough_prep_time": 15,
+          "resting_time": 15,
+          "item_prep_time": 15,
+          "breads_per_oven": 15,
+          "baking_time": 15,
+          "baking_temp": 230,
+          "cooling_rate": 1,
+          "boxing_temp": 60,
+          "breads_per_box": 20,
+          "production_cost": 10,
+          "sales_price": 15
         },
         {
           "id": "bagel",
-          "dough-prep-time": 15,
-          "resting-time": 15,
-          "item-prep-time": 15,
-          "breads-per-oven": 15,
-          "baking-time": 15,
-          "baking-temp": 230,
-          "cooling-rate": 1,
-          "boxing-temp": 60,
-          "breads-per-box": 20,
-          "production-cost": 10,
-          "sales-price": 15
+          "dough_prep_time": 15,
+          "resting_time": 15,
+          "item_prep_time": 15,
+          "breads_per_oven": 15,
+          "baking_time": 15,
+          "baking_temp": 230,
+          "cooling_rate": 1,
+          "boxing_temp": 60,
+          "breads_per_box": 20,
+          "production_cost": 10,
+          "sales_price": 15
         }
       ],
       "trucks": [
         {
           "id": 1,
-          "load-capacity": 30,
+          "load_capacity": 30,
           "location": {
             "x": 0,
             "y": 0
@@ -62,7 +62,7 @@
         },
         {
           "id": 2,
-          "load-capacity": 30,
+          "load_capacity": 30,
           "location": {
             "x": 0,
             "y": 0
@@ -94,12 +94,12 @@
   "orders": [
     {
       "uid": 1,
-      "customer-id": "Citadel Cafe",
-      "order-date": {
+      "customer_id": "Citadel Cafe",
+      "order_date": {
         "day": 1,
         "hour": 12
       },
-      "delivery-date": {
+      "delivery_date": {
         "day": 3,
         "hour": 12
       },
@@ -109,12 +109,12 @@
     },
     {
       "uid": 2,
-      "customer-id": "Winterfell",
-      "order-date": {
+      "customer_id": "Winterfell",
+      "order_date": {
         "day": 2,
         "hour": 12
       },
-      "delivery-date": {
+      "delivery_date": {
         "day": 4,
         "hour": 12
       },
@@ -123,5 +123,5 @@
       }
     }
   ],
-  "street-network": []
+  "street_network": []
 }
