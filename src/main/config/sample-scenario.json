@@ -1,4 +1,17 @@
 {
+  "meta": {
+    "orders": {
+      "total": "",
+      "avg_per_day": ""
+    },
+    "customers": {
+      "total_type1": 1,
+      "total_type2": 1,
+      "total_type3": 0
+    },
+    "total_bakeries": "",
+    "duration_days": ""
+  },
   "bakeries": [
     {
       "uid": 1,
