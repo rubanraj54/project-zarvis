@@ -14,7 +14,7 @@
   },
   "bakeries": [
     {
-      "uid": 1,
+      "guid": "bakery-001",
       "name": "Kingslanding Bakery",
       "location": {
         "x": 0,
@@ -24,12 +24,12 @@
       "dough_prep_tables": 2,
       "ovens": [
         {
-          "uid": 1,
+          "guid": 1,
           "cooling_rate": 1,
           "heating_rate": 1
         },
         {
-          "uid": 2,
+          "guid": 2,
           "cooling_rate": 1,
           "heating_rate": 1
         }
@@ -66,7 +66,7 @@
       ],
       "trucks": [
         {
-          "uid": 1,
+          "guid": "truck-001",
           "load_capacity": 30,
           "location": {
             "x": 0,
@@ -74,7 +74,7 @@
           }
         },
         {
-          "uid": 2,
+          "guid": "truck-002",
           "load_capacity": 30,
           "location": {
             "x": 0,
@@ -86,7 +86,7 @@
   ],
   "customers": [
     {
-      "uid": 1,
+      "guid": "customer-001",
       "name": "Hot Pie Inn",
       "type": "hotel",
       "location": {
@@ -95,7 +95,7 @@
       }
     },
     {
-      "uid": 1,
+      "guid": "customer-002",
       "name": "Citadel Cafe",
       "type": "canteen",
       "location": {
@@ -106,7 +106,7 @@
   ],
   "orders": [
     {
-      "uid": 1,
+      "guid": "order-001",
       "customer_id": "Citadel Cafe",
       "order_date": {
         "day": 1,
@@ -121,7 +121,7 @@
       }
     },
     {
-      "uid": 2,
+      "guid": "order-002",
       "customer_id": "Winterfell",
       "order_date": {
         "day": 2,
