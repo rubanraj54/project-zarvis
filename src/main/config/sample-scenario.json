@@ -1,16 +1,15 @@
 {
   "meta": {
-    "orders": {
-      "total": "",
-      "avg_per_day": ""
-    },
+    "orders": 5,
     "customers": {
       "total_type1": 1,
       "total_type2": 1,
       "total_type3": 0
     },
-    "total_bakeries": "",
-    "duration_days": ""
+    "bakeries": 2,
+    "duration_days": 10,
+    "trucks": 4,
+    "products": 5
   },
   "bakeries": [
     {
