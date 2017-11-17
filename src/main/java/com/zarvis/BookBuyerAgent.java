@@ -1,4 +1,4 @@
-package maas;
+package com.zarvis;
 
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
