@@ -1,6 +1,9 @@
 # project
 
 ## Zarvis
+## Team Name
+* Name1 LastName1 - [@githubusername](https://github.com/username)
+* Name2 LastName2 - [@githubusername](https://github.com/username)
 
 [![Build Status](https://travis-ci.org/HBRS-MAAS/project-zarvis.svg?branch=master)](https://travis-ci.org/HBRS-MAAS/project-zarvis)
 
