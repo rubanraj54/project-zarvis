@@ -1,15 +1,12 @@
 # project
 
 ## Zarvis
-## Team Name
-* Name1 LastName1 - [@githubusername](https://github.com/username)
-* Name2 LastName2 - [@githubusername](https://github.com/username)
 
 [![Build Status](https://travis-ci.org/HBRS-MAAS/project-zarvis.svg?branch=master)](https://travis-ci.org/HBRS-MAAS/project-zarvis)
 
-* Rubanraj Ravichandran- @rubanraj54(https://github.com/rubanraj54)
-* Bouknify Yassine- @bouknify(https://github.com/bouknify)
-* Aniruddha Pal- @ani3190(https://github.com/ani3190)
+* Rubanraj Ravichandran- [@rubanraj54](https://github.com/rubanraj54)
+* Bouknify Yassine- [@bouknify](https://github.com/bouknify)
+* Aniruddha Pal- [@ani3190](https://github.com/ani3190)
 
 
 
