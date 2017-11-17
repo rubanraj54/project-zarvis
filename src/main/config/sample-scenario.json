@@ -115,9 +115,16 @@
         "day": 3,
         "hour": 12
       },
-      "products": {
-        "bread": 5
-      }
+      "items": [
+          {
+              "name" : "bread",
+              "quantity" : 5
+          },
+          {
+              "name" : "pizza",
+              "quantity" : 2
+          }
+      ]
     },
     {
       "guid": "order-002",
