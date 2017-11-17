@@ -5,6 +5,7 @@ public class Truck {
 	private String guid;
 	private int load_capacity;
 	private Location location;
+	
 	public String getGuid() {
 		return guid;
 	}
@@ -23,6 +24,5 @@ public class Truck {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
 	
 }

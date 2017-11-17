@@ -5,6 +5,7 @@ public class Oven {
 	private int guid;
 	private int cooling_rate;
 	private int heating_rate;
+	
 	public int getGuid() {
 		return guid;
 	}
@@ -23,7 +24,5 @@ public class Oven {
 	public void setHeating_rate(int heating_rate) {
 		this.heating_rate = heating_rate;
 	}
-	
-	
 
 }

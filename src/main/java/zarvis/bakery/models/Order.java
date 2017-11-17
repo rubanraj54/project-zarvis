@@ -1,5 +1,5 @@
 package zarvis.bakery.models;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class Order {
@@ -8,7 +8,8 @@ public class Order {
 	private String customer_id;
 	private Date order_date;
 	private Date delivery_date;
-	private ArrayList<Product> products = new ArrayList<Product>();
+	private List<Product> products;
+	
 	public String getGuid() {
 		return guid;
 	}
@@ -33,10 +34,10 @@ public class Order {
 	public void setDelivery_date(Date delivery_date) {
 		this.delivery_date = delivery_date;
 	}
-	public ArrayList<Product> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
-	public void setProducts(ArrayList<Product> products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 }
