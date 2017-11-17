@@ -1,6 +1,7 @@
 package zarvis.bakery;
 
 import zarvis.bakery.agents.BakeryAgent;
+import zarvis.bakery.agents.CustomerAgent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -22,6 +23,7 @@ public class MainContainer {
 			AgentContainer mainContainer = runtime.createMainContainer(profileImpl);
 			
 			mainContainer.acceptNewAgent("bakery", new BakeryAgent()).start();
+			mainContainer.acceptNewAgent("customer", new CustomerAgent()).start();
 			mainContainer.start();
 		}
 		catch(Exception e){
