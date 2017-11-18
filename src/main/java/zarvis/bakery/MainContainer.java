@@ -1,13 +1,17 @@
 package zarvis.bakery;
 
-import zarvis.bakery.agents.BakeryAgent;
-import zarvis.bakery.agents.CustomerAgent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
 import jade.util.ExtendedProperties;
 import jade.util.leap.Properties;
 import jade.wrapper.AgentContainer;
+import zarvis.bakery.agents.BakeryAgent;
+import zarvis.bakery.agents.CustomerAgent;
+import zarvis.bakery.models.Bakery;
+import zarvis.bakery.models.BakeryJsonWrapper;
+import zarvis.bakery.models.Customer;
+import zarvis.bakery.utils.Util;
 public class MainContainer {
 	public static void main(String[] args) {
 		try{
@@ -22,8 +26,20 @@ public class MainContainer {
 			
 			AgentContainer mainContainer = runtime.createMainContainer(profileImpl);
 			
-			mainContainer.acceptNewAgent("bakery", new BakeryAgent()).start();
-			mainContainer.acceptNewAgent("customer", new CustomerAgent()).start();
+			BakeryJsonWrapper wrapper = Util.getWrapper();
+			
+			System.out.println(wrapper.getMeta());
+			
+			// create multiple bakery agents
+			for (Bakery bakery : wrapper.getBakeries()) {
+				mainContainer.acceptNewAgent(bakery.getName(), new BakeryAgent(bakery)).start();
+			}
+			
+			// create multiple customer agents
+			for (Customer customer : wrapper.getCustomers()) {
+				mainContainer.acceptNewAgent(customer.getName(), new CustomerAgent(customer)).start();
+			}
+
 			mainContainer.start();
 		}
 		catch(Exception e){

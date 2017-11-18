@@ -10,9 +10,17 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import zarvis.bakery.models.Bakery;
+import zarvis.bakery.models.BakeryJsonWrapper;
 
 public class BakeryAgent extends Agent {
 	private Map<String, Double> data=new HashMap<>();
+	private Bakery bakery;
+	
+	public BakeryAgent(Bakery bakery){
+		this.bakery= bakery;
+	}
+	
 	@Override
 	protected void setup() {
 		System.out.println("....... Bakery "+this.getAID().getName());
@@ -24,7 +32,7 @@ public class BakeryAgent extends Agent {
 		// Create service description and set type and bakery name
 		ServiceDescription serviceDescription = new ServiceDescription();
 		serviceDescription.setType("bakery");
-		serviceDescription.setName("Bakery 1");
+		serviceDescription.setName(bakery.getName());
 		
 		// add the service description to this agent
 		agentDescription.addServices(serviceDescription);

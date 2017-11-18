@@ -8,7 +8,7 @@ public class Order {
 	private String customer_id;
 	private Date order_date;
 	private Date delivery_date;
-	private List<Product> products;
+	private Product products;
 	
 	public String getGuid() {
 		return guid;
@@ -34,10 +34,11 @@ public class Order {
 	public void setDelivery_date(Date delivery_date) {
 		this.delivery_date = delivery_date;
 	}
-	public List<Product> getProducts() {
+	public Product getProducts() {
 		return products;
 	}
-	public void setProducts(List<Product> products) {
+	public void setProducts(Product products) {
 		this.products = products;
 	}
+
 }
