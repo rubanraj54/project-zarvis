@@ -45,62 +45,27 @@ public class BakeryAgent extends Agent {
 			e.printStackTrace();
 		}
 		
-//		addBehaviour(new BakeryBehaviour());
+		addBehaviour(new BakeryBehaviour());
 	}
 	
 class BakeryBehaviour extends CyclicBehaviour{
 	@Override
 	public void action() {
-		try {
-			MessageTemplate messageTemplate= MessageTemplate.or(
-			MessageTemplate.MatchPerformative(ACLMessage.CFP),
-			MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL));
-			ACLMessage aclMessage=receive(messageTemplate);
-			if(aclMessage!=null){
-				switch(aclMessage.getPerformative()){
-					case ACLMessage.CFP :
-						System.out.println("--------------------------------");
-						System.out.println("Conversation :"+aclMessage.getConversationId());
-						String food=aclMessage.getContent();
-						//String compteur=aclMessage.getUserDefinedParameter("compteur");
-						System.out.println("Receiving a message :"/*+compteur*/);
-						System.out.println("Sender :"+aclMessage.getSender().getName());
-						System.out.println("contents:"+food);
-						System.out.println("--------------------------------");
-						Double price=data.get(food);
-						if(price!=null){
-							ACLMessage reply=aclMessage.createReply();
-							reply.setPerformative(ACLMessage.PROPOSE);
-							reply.setContent(price.toString());
-							System.out.println("...... In progress");
-							Thread.sleep(5000);
-							send(reply);
-						}
-						else{
-							ACLMessage reply=aclMessage.createReply();
-							reply.setPerformative(ACLMessage.REFUSE);
-							reply.setContent("sorry :( :( the requested food does not exist!");
-							System.out.println("cancellation of the order....");
-							Thread.sleep(5000);
-							send(reply);
-						}
-						break;
-					case ACLMessage.ACCEPT_PROPOSAL:
-						System.out.println("--------------------------------");
-						System.out.println("Conversation :"+aclMessage.getConversationId());
-						System.out.println("Validation of the transaction .....");
-						ACLMessage reply2=aclMessage.createReply();
-						reply2.setPerformative(ACLMessage.CONFIRM);
-						System.out.println("...... In progress");
-						Thread.sleep(5000);
-						send(reply2);
-						break;
-				} 
-			}
-			else{
-				//System.out.println("Block");
-				block();
-			}
+		try {		
+			ACLMessage msg = myAgent.receive();
+		if (msg != null) {
+			System.out.println("order received by the bakery");
+			// Message received. Process it
+			String title = msg.getContent();
+			System.out.println(title);
+//			ACLMessage reply = msg.createReply();
+//
+//			reply.setPerformative(ACLMessage.INFORM);
+//			reply.setContent("purchase order confirmed..! your book will be shipped soon");
+//			reply.setConversationId("book-trade");
+//			System.out.println("purchase order placed");
+//			myAgent.send(reply);
+		}
 			
 		}
 		catch (Exception e) {e.printStackTrace(); }
