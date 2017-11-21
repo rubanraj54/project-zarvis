@@ -1,5 +1,12 @@
 package zarvis.bakery.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.text.Utilities;
+
+import zarvis.bakery.utils.Util;
+
 public class Customer {
 	private String guid;
 	private String name;
@@ -8,6 +15,8 @@ public class Customer {
 	private int total_type1;
 	private int total_type2;
 	private int total_type3;
+	
+	private List<Order> orders = new ArrayList<Order>();
 	
 	
 	public int getTotal_type1() {
@@ -51,6 +60,22 @@ public class Customer {
 	}
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	
+	public List<Order> getOrders() {
+		for(Order order : Util.getWrapper().getOrders()) {
+			if(order.getCustomer_id().equals(name)){
+				this.orders.add(order);	
+			}
+		}
+		return orders;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [guid=" + guid + ", name=" + name + ", type=" + type + ", location=" + location
+				+ ", total_type1=" + total_type1 + ", total_type2=" + total_type2 + ", total_type3=" + total_type3
+				+ "]";
 	}
 
 }

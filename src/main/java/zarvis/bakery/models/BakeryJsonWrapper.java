@@ -41,5 +41,12 @@ public class BakeryJsonWrapper {
 	public void setMeta(MetaInfo meta) {
 		this.meta = meta;
 	}
+
+	@Override
+	public String toString() {
+		return "BakeryJsonWrapper [meta=" + meta + ", bakeries=" + bakeries + ", customers=" + customers + ", orders="
+				+ orders + "]";
+	}
+	
 	
 }

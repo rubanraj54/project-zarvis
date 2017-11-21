@@ -56,4 +56,11 @@ public class MetaInfo {
 	public void setOrders(int orders) {
 		this.orders = orders;
 	}
+
+	@Override
+	public String toString() {
+		return "MetaInfo [orders=" + orders + ", customers=" + customers + ", bakeries=" + bakeries + ", duration_days="
+				+ duration_days + ", trucks=" + trucks + ", products=" + products + "]";
+	}
+	
 }

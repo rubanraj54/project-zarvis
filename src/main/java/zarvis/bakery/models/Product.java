@@ -121,7 +121,14 @@ public class Product {
 	public void setSales_price(int sales_price) {
 		this.sales_price = sales_price;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", dough_prep_time=" + dough_prep_time + ", resting_time=" + resting_time
+				+ ", item_prep_time=" + item_prep_time + ", breads_per_oven=" + breads_per_oven + ", baking_time="
+				+ baking_time + ", baking_temp=" + baking_temp + ", cooling_rate=" + cooling_rate + ", boxing_temp="
+				+ boxing_temp + ", breads_per_box=" + breads_per_box + ", production_cost=" + production_cost
+				+ ", sales_price=" + sales_price + "]";
+	}
 
 }

@@ -24,5 +24,9 @@ public class Truck {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+	@Override
+	public String toString() {
+		return "Truck [guid=" + guid + ", load_capacity=" + load_capacity + ", location=" + location + "]";
+	}
 	
 }

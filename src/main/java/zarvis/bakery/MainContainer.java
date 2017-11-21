@@ -28,8 +28,6 @@ public class MainContainer {
 			
 			BakeryJsonWrapper wrapper = Util.getWrapper();
 			
-			System.out.println(wrapper.getMeta());
-			
 			// create multiple bakery agents
 			for (Bakery bakery : wrapper.getBakeries()) {
 				mainContainer.acceptNewAgent(bakery.getName(), new BakeryAgent(bakery)).start();

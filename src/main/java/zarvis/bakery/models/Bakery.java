@@ -2,6 +2,7 @@ package zarvis.bakery.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Bakery {
 	private String guid;
@@ -62,5 +63,29 @@ public class Bakery {
 	public void setTrucks(ArrayList<Truck> trucks) {
 		this.trucks = trucks;
 	}
+	
+	public boolean hasAllProducts(Order order) {
+		List<String> productids = getProductIds();
+		for(String id : order.getProducts().keySet()){
+			if(!productids.contains(id)) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	public List<String> getProductIds(){
+		return getProducts().stream().map(Product::getId).collect(Collectors.toList());
+	}
+	
+	@Override
+	public String toString() {
+		return "Bakery [guid=" + guid + ", name=" + name + ", location=" + location + ", kneading_machines="
+				+ kneading_machines + ", dough_prep_tables=" + dough_prep_tables + ", ovens=" + ovens + ", products="
+				+ products + ", trucks=" + trucks + "]";
+	}
+	
+	
 	
 }

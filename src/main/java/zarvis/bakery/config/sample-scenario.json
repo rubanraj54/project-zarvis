@@ -120,6 +120,21 @@
       }
     },
     {
+      "guid": "order-003",
+      "customer_id": "Citadel Cafe",
+      "order_date": {
+        "day": 1,
+        "hour": 12
+      },
+      "delivery_date": {
+        "day": 3,
+        "hour": 12
+      },
+      "products": {
+        "pizza": 6
+      }
+    },
+    {
       "guid": "order-002",
       "customer_id": "Winterfell",
       "order_date": {

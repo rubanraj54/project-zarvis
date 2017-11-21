@@ -15,6 +15,10 @@ public class Date {
 	public void setHour(int hour) {
 		this.hour = hour;
 	}
+	@Override
+	public String toString() {
+		return "Date [day=" + day + ", hour=" + hour + "]";
+	}
 	
 	
 }

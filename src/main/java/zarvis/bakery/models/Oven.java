@@ -24,5 +24,9 @@ public class Oven {
 	public void setHeating_rate(int heating_rate) {
 		this.heating_rate = heating_rate;
 	}
+	@Override
+	public String toString() {
+		return "Oven [guid=" + guid + ", cooling_rate=" + cooling_rate + ", heating_rate=" + heating_rate + "]";
+	}
 
 }
