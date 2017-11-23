@@ -54,18 +54,21 @@ class BakeryBehaviour extends CyclicBehaviour{
 		try {		
 			ACLMessage msg = myAgent.receive();
 		if (msg != null) {
+			System.out.println("=======================");
 			System.out.println("order received by the bakery");
 			// Message received. Process it
 			String title = msg.getContent();
 			System.out.println(title);
-//			ACLMessage reply = msg.createReply();
-//
-//			reply.setPerformative(ACLMessage.INFORM);
-//			reply.setContent("purchase order confirmed..! your book will be shipped soon");
-//			reply.setConversationId("book-trade");
-//			System.out.println("purchase order placed");
-//			myAgent.send(reply);
+			ACLMessage reply = msg.createReply();
+			reply.setPerformative(ACLMessage.REFUSE);
+			reply.setContent("request accepted");
+			reply.setConversationId("customer request");
+			System.out.println("order placed");
+			System.out.println("=======================");
+			myAgent.send(reply);
 		}
+		else
+			block();
 			
 		}
 		catch (Exception e) {e.printStackTrace(); }

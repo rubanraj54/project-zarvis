@@ -1,5 +1,6 @@
 package zarvis.bakery.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BakeryJsonWrapper {
@@ -48,5 +49,13 @@ public class BakeryJsonWrapper {
 				+ orders + "]";
 	}
 	
+	public List<Order> getOrderByIdCustomer(String customerId){
+		List<Order> orders = new ArrayList<Order>();
+		for(Order order : this.orders){
+			if(order.getCustomer_id().equals(customerId))
+				orders.add(order);
+		}
+		return orders;	
+	}
 	
 }
