@@ -62,7 +62,7 @@ public class RequestPerformerCustomer extends Behaviour {
 					
 				}
 				else{
-					step = 1;
+					step = 3;
 					System.out.println("the order "+orderId+" is refused by all the Bakeries");
 					break;
 				}
@@ -82,7 +82,6 @@ public class RequestPerformerCustomer extends Behaviour {
 					block();
 				}
 				else if(reply.getPerformative() == ACLMessage.REFUSE){
-					if(bakeryIndex < totalBakeries)
 					System.out.println("the order "+orderId+" is refused by bakery: "+backeryAgents[bakeryIndex]);
 					bakeryIndex++;
 					step = 0;// for chose other bakery
@@ -91,6 +90,9 @@ public class RequestPerformerCustomer extends Behaviour {
 			else {
 				block();
 			}
+			break;
+		case 3: 
+			block();
 			break;
 		}
 	}
