@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
 import zarvis.bakery.behaviors.RequestPerformerCustomer;
 import zarvis.bakery.models.Customer;
 import zarvis.bakery.models.Order;
@@ -27,7 +26,7 @@ public class CustomerAgent extends Agent {
 			if (order.getOrder_date().getDay()==1)
 				this.orderAggregation.put(order.getGuid(), order.getOrder_date().getHour()); 
 			else{
-				int time = order.getOrder_date().getHour() + order.getOrder_date().getDay()* 24;
+				int time = order.getOrder_date().getHour() + (order.getOrder_date().getDay()-1)* 24;
 				this.orderAggregation.put(order.getGuid(), time); 
 			}
 		}

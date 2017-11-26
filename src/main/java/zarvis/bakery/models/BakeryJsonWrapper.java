@@ -57,5 +57,17 @@ public class BakeryJsonWrapper {
 		}
 		return orders;	
 	}
+	public Order getOrderById(String orderId){
+		
+		for(Order order : this.orders){
+			if(order.getGuid().equals(orderId))
+			{
+				return order;
+			}
+			
+		}
+		return null;
+		
+	}
 	
 }
