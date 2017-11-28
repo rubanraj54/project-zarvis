@@ -56,7 +56,7 @@ public class RequestPerformerCustomer extends Behaviour {
 					System.out.println(backeryAgents[bakeryIndex]);
 					cfp.addReceiver(backeryAgents[bakeryIndex]);
 					cfp.setContent(this.orderId+" "+customerId);
-					cfp.setConversationId("customer "+customerId+" request");
+					cfp.setConversationId("customer request");
 					cfp.setReplyWith("cfp"+orderId+System.currentTimeMillis()); // Unique value
 					System.out.println("sending order to bakery");
 					myAgent.send(cfp);
@@ -78,10 +78,7 @@ public class RequestPerformerCustomer extends Behaviour {
 			if (reply != null) {
 				// Reply received
 				if (reply.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {
-					System.out.println("=======================");
-					System.out.println("customer : "+this.customerId);
 					System.out.println("Received Accept from bakery : "+backeryAgents[bakeryIndex]);
-					System.out.println("=======================");
 					block();
 				}
 				else if(reply.getPerformative() == ACLMessage.REFUSE){

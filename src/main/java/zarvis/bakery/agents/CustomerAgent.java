@@ -39,7 +39,7 @@ public class CustomerAgent extends Agent {
 			      return e1.getValue().compareTo(e2.getValue());
 			    }
 		});
-		 //System.out.println("size = "+entries.size());
+
 		return entries;
 	}
 	

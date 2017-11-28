@@ -75,8 +75,6 @@ public class Bakery {
 	
 	public boolean hasAllProducts(Order order) {
 		List<String> productids = getProductIds();
-		System.out.println("here");
-		System.out.println(order);
 		for(String id : order.getProducts().keySet()){
 			if(!productids.contains(id)) {
 				return false;

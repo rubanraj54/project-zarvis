@@ -26,13 +26,11 @@ public class ManageProductsBehavior extends CyclicBehaviour{
 		}
 		
 		if(message!=null && message.getPerformative() == ACLMessage.REQUEST){
-			System.out.println("here");
 			if(nextProducts.size() > 0){
-				System.err.println("reply" + currentOrder.getGuid() + " " + nextProducts.get(0));
-//				ACLMessage reply = message.createReply();
-//				reply.setPerformative(ACLMessage.PROPOSE);
-//				reply.setContent(currentOrder.getGuid() + " " + nextProducts.get(0));
-//				reply.setConversationId("book-trade");
+				ACLMessage reply = message.createReply();
+				reply.setPerformative(ACLMessage.PROPOSE);
+				reply.setContent(currentOrder.getGuid() + " " + nextProducts.get(0));
+				reply.setConversationId("");
 			}else{
 				currentOrder = orderList.get(0);
 				nextProducts = new ArrayList<>(currentOrder.getProducts().keySet());
