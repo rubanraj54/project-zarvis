@@ -27,6 +27,7 @@ public class RequestPerformer extends Behaviour {
 			// Send the cfp (call for proposal) to all sellers
 			ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
 			for (int i = 0; i < sellerAgents.length; ++i) {
+				System.out.println(sellerAgents[i]);
 				cfp.addReceiver(sellerAgents[i]);
 			}
 			cfp.setContent(targetBookTitle);

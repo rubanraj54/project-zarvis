@@ -44,7 +44,6 @@ public class FindAllBackeryByNameBehaviour extends TickerBehaviour{
 				cfp.setConversationId("book-trade");
 				cfp.setReplyWith("cfp"+System.currentTimeMillis()); // Unique value
 				myAgent.send(cfp);
-				System.out.println("book title sent to all available sellers");
 				// Prepare the template to get proposals
 				mt = MessageTemplate.and(MessageTemplate.MatchConversationId("bakery"),
 						MessageTemplate.MatchInReplyTo(cfp.getReplyWith()));

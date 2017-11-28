@@ -15,6 +15,15 @@ public class Bakery {
 	private List<Product> products;
 	private List<Truck>  trucks;
 	
+	public Product getProduct(String id){
+		for (Product product : products) {
+			if (product.getId().equals(id)) {
+				return product;
+			}
+		}
+		return null;
+	}
+	
 	public String getGuid() {
 		return guid;
 	}
@@ -66,6 +75,8 @@ public class Bakery {
 	
 	public boolean hasAllProducts(Order order) {
 		List<String> productids = getProductIds();
+		System.out.println("here");
+		System.out.println(order);
 		for(String id : order.getProducts().keySet()){
 			if(!productids.contains(id)) {
 				return false;

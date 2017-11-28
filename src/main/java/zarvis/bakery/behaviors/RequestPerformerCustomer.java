@@ -26,10 +26,11 @@ public class RequestPerformerCustomer extends Behaviour {
 		int total=0;
 		DFAgentDescription template = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		DFAgentDescription[] result = DFService.search(myAgent, template);
-		backeryAgents = new AID[result.length];
 		sd.setType("bakery");
 		template.addServices(sd);
+		DFAgentDescription[] result = DFService.search(myAgent, template);
+		backeryAgents = new AID[result.length];
+		
 		for (int i = 0; i < result.length; ++i){ 
 			backeryAgents[i] = result[i].getName();
 			total++;
@@ -52,10 +53,12 @@ public class RequestPerformerCustomer extends Behaviour {
 				}
 				if(bakeryIndex < totalBakeries){
 					ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
+					System.out.println(backeryAgents[bakeryIndex]);
 					cfp.addReceiver(backeryAgents[bakeryIndex]);
 					cfp.setContent(this.orderId+" "+customerId);
 					cfp.setConversationId("customer "+customerId+" request");
 					cfp.setReplyWith("cfp"+orderId+System.currentTimeMillis()); // Unique value
+					System.out.println("sending order to bakery");
 					myAgent.send(cfp);
 					step = 1;
 					break;
