@@ -8,6 +8,7 @@ import jade.lang.acl.ACLMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zarvis.bakery.agents.CustomerAgent;
+import zarvis.bakery.messages.CustomMessage;
 import zarvis.bakery.models.Order;
 import zarvis.bakery.utils.Util;
 
@@ -23,25 +24,27 @@ public class ManageProductsBehavior extends CyclicBehaviour{
 		ACLMessage message = myAgent.receive();
 
 		if (message != null) {
-            if(message.getPerformative() == ACLMessage.INFORM){
+            if(message.getPerformative() == ACLMessage.INFORM &&
+                    message.getConversationId().equals("inform-product-to-kneeding-machine-manager")){
                 String orderId = message.getContent();
                 Order order = Util.getWrapper().getOrderById(orderId);
                 orderList.add(order);
-                ACLMessage reply = message.createReply();
-                reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-                reply.setContent(order.getGuid());
-                myAgent.send(reply);
+                logger.info("New order added to kneeding machine manager list {}",order);
+                Util.sendReply(myAgent,message,ACLMessage.ACCEPT_PROPOSAL,order.getGuid(),"inform-product-to-kneeding-machine-manager");
             }
 
-            if(message.getPerformative() == ACLMessage.REQUEST){
-                if(nextProducts.size() > 0){
-                    ACLMessage reply = message.createReply();
-                    reply.setPerformative(ACLMessage.PROPOSE);
-                    reply.setContent(currentOrder.getGuid() + " " + nextProducts.get(0));
-                    reply.setConversationId("");
-                }else{
-                    currentOrder = orderList.get(0);
-                    nextProducts = new ArrayList<>(currentOrder.getProducts().keySet());
+            if(message.getPerformative() == ACLMessage.REQUEST && message.getConversationId().equals("next-product-request")){
+                ACLMessage reply = message.createReply();
+                if(nextProducts.size() == 0){
+                    if (orderList.size() == 0){
+                        Util.sendReply(myAgent,message,ACLMessage.REFUSE,"No products available for kneeding","next-product-request");
+                    } else {
+                        currentOrder = orderList.get(0);
+                        nextProducts = new ArrayList<>(currentOrder.getProducts().keySet());
+                    }
+                } else {
+                    Util.sendReply(myAgent,message,CustomMessage.RESPONSE,currentOrder.getGuid() + " " + nextProducts.get(0),
+                            "next-product-request");
                 }
             }
         } else {

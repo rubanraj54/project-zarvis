@@ -23,7 +23,7 @@ public class BakeryAgent extends Agent {
 	@Override
 	protected void setup() {
 
-		Util.registerInYelloPage(this,"BakeryService",bakery.getName());
+		Util.registerInYellowPage(this,"BakeryService",bakery.getGuid());
 		
 		addBehaviour(new ProcessOrderBehaviour(bakery));
 	}

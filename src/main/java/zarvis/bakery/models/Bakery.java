@@ -73,14 +73,15 @@ public class Bakery {
 		this.trucks = trucks;
 	}
 	
-	public boolean hasAllProducts(Order order) {
+	public int missingProductCount(Order order) {
 		List<String> productids = getProductIds();
+		int missingProductCount = 0;
 		for(String id : order.getProducts().keySet()){
 			if(!productids.contains(id)) {
-				return false;
+				missingProductCount++;
 			}
 		}
-		return true;
+		return missingProductCount;
 		
 	}
 	

@@ -11,8 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.core.Agent;
-import zarvis.bakery.behaviors.FindAllBackeryByNameBehaviour;
-import zarvis.bakery.behaviors.RequestPerformerCustomer;
+import zarvis.bakery.behaviors.customer.RequestPerformerBehavior;
 import zarvis.bakery.models.Customer;
 import zarvis.bakery.models.Order;
 import zarvis.bakery.utils.Util;
@@ -51,7 +50,10 @@ public class CustomerAgent extends Agent {
 	
 	@Override
 	protected void setup() {
-		logger.info("Hi I'm the agent Customer my name is:"+this.getAID().getName());
+		logger.info("Hi I'm the Customer agent, my name is:"+this.getAID().getName());
+
+		Util.registerInYellowPage(this,"Customer",customer.getGuid());
+
 		List<Entry<String, Integer>> entries = doAggregation();
 		int timeDiff =0;
 		for (final Entry<String, Integer> entry : entries) {
@@ -59,14 +61,14 @@ public class CustomerAgent extends Agent {
 			try {
 				Thread.sleep(entry.getValue()-timeDiff);
 				timeDiff = entry.getValue();
-				addBehaviour(new RequestPerformerCustomer(customer.getName(),entry.getKey()));
+				addBehaviour(new RequestPerformerBehavior(customer.getName(),entry.getKey()));
 			} 
 			catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		addBehaviour(new FindAllBackeryByNameBehaviour());
+
 	}
 	
 	protected void takeDown() {

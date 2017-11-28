@@ -43,38 +43,35 @@ public class ProcessOrderBehaviour extends CyclicBehaviour {
 				logger.info("Order {} stored in {} successfully",message.getContent(),message.getSender().getName());
 			}
 
-			else if (message.getPerformative() == ACLMessage.CFP) {
+			else if (message.getPerformative() == ACLMessage.CFP && message.getConversationId().equals("place-order")) {
 				String[] titleparts = message.getContent().split(" ");
 				String orderID = titleparts[0];
 
 				Order order = Util.getWrapper().getOrderById(orderID);
 
-				ACLMessage reply = message.createReply();
+				Util.sendReply(myAgent,message,ACLMessage.PROPOSE,
+						String.valueOf(bakery.missingProductCount(order)),"place-order");
 
-				if(!bakery.hasAllProducts(order)){
-					reply.setPerformative(ACLMessage.REFUSE);
-					logger.warn("All products not found in our bakery " + bakery.getName());
-					reply.setContent("All products not found in our bakery " + bakery.getName()); 
-					reply.setConversationId("customer request");  
-					myAgent.send(reply); 
 
-				} else {
-					// for available orders to be delivered on day 1 
-					if ((order.getDelivery_date().getDay() == 1)){
-						this.orderAggregation.put(order.getDelivery_date().getHour(), order.getGuid()); 
-					}
-					// for available orders to be delivered after day 1 
-					else {
-						int time = order.getDelivery_date().getHour() + (order.getDelivery_date().getDay()-1)* 24;
-						this.orderAggregation.put(time, order.getGuid()); 
-					}
+			} else if (message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL && message.getConversationId().equals("place-order")) {
 
-					reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-					reply.setContent("request accepted");
-					reply.setConversationId("customer request");
-					myAgent.send(reply);
-					informKneedingManager(orderID);
+				String[] titleparts = message.getContent().split(" ");
+				String orderID = titleparts[0];
+				Order order = Util.getWrapper().getOrderById(orderID);
+
+				// for available orders to be delivered on day 1
+				if ((order.getDelivery_date().getDay() == 1)) {
+					this.orderAggregation.put(order.getDelivery_date().getHour(), order.getGuid());
 				}
+				// for available orders to be delivered after day 1
+				else {
+					int time = order.getDelivery_date().getHour() + (order.getDelivery_date().getDay() - 1) * 24;
+					this.orderAggregation.put(time, order.getGuid());
+				}
+
+				Util.sendReply(myAgent,message,ACLMessage.CONFIRM,"Order accepted","place-order");
+				logger.info("order accepted");
+				informKneedingManager(orderID);
 
 			}
 		}

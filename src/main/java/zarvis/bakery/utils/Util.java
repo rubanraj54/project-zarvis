@@ -12,9 +12,11 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import jade.lang.acl.ACLMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import zarvis.bakery.agents.BakeryAgent;
+import zarvis.bakery.messages.CustomMessage;
 import zarvis.bakery.models.BakeryJsonWrapper;
 
 public class Util {
@@ -50,7 +52,7 @@ public class Util {
 
 	}
 
-	public static boolean registerInYelloPage(Agent agent,String type,String name){
+	public static boolean registerInYellowPage(Agent agent,String type,String name){
 		// Create agent description and set AID
 		DFAgentDescription agentDescription = new DFAgentDescription();
 		agentDescription.setName(agent.getAID());
@@ -70,7 +72,30 @@ public class Util {
 			e.printStackTrace();
 			return false;
 		}
+	}
 
+	public static void sendReply(Agent agent,ACLMessage message,int performative,String content,String conversationId){
+		ACLMessage reply = message.createReply();
+		reply.setPerformative(performative);
+		reply.setContent(content);
+		reply.setConversationId(conversationId);
+		agent.send(reply);
+	}
+
+	public static void sendMessage(Agent agent,AID receiver,int performative,String content,String conversationId){
+		ACLMessage message = new ACLMessage(performative);
+		message.addReceiver(receiver);
+		message.setConversationId(conversationId);
+		message.setContent(content);
+		agent.send(message);
+	}
+
+	public static void waitForSometime(long milliseconds) {
+		try {
+			Thread.sleep(milliseconds);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
