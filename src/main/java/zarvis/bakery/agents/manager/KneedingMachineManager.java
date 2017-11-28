@@ -1,15 +1,21 @@
 package zarvis.bakery.agents.manager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import zarvis.bakery.agents.BakeryAgent;
 import zarvis.bakery.behaviors.kneedingmachinemanager.ManageProductsBehavior;
 import zarvis.bakery.models.Bakery;
+import zarvis.bakery.utils.Util;
 
 public class KneedingMachineManager extends Agent {
 	
+	private Logger logger = LoggerFactory.getLogger(KneedingMachineManager.class);
 	private Bakery bakery;
 	
 	public KneedingMachineManager(Bakery bakery) {
@@ -18,25 +24,9 @@ public class KneedingMachineManager extends Agent {
 
 	@Override
 	protected void setup() {
-		// Create agent description and set AID 
-		DFAgentDescription agentDescription = new DFAgentDescription();
-		agentDescription.setName(getAID());
 
-		// Create service description and set type and bakery name
-		ServiceDescription serviceDescription = new ServiceDescription();
-		serviceDescription.setType("KneedingMachineManager");
-		serviceDescription.setName("kneedingmachinemanager");
+		Util.registerInYelloPage(this,"KneedingMachineManager","kneedingmachinemanager-"+bakery.getGuid());
 
-		// add the service description to this agent
-		agentDescription.addServices(serviceDescription);
-
-		// Now add this agent description to yellow pages,
-		try {
-			DFService.register(this, agentDescription);
-			System.out.println("Kneeding machine manager is added to yellow pages");
-		} catch (FIPAException e) {
-			e.printStackTrace();
-		}
 		addBehaviour(new ManageProductsBehavior());
 		super.setup();
 	}

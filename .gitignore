@@ -34,3 +34,7 @@ hs_err_pid*
 # Exceptions
 !lib/commons-codec/commons-codec-1.3.jar
 !lib/jade.jar
+
+\.idea/
+
+*.iml

@@ -3,6 +3,9 @@ package zarvis.bakery.behaviors.bakery;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
@@ -10,37 +13,49 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
+import zarvis.bakery.agents.manager.KneedingMachineManager;
 import zarvis.bakery.models.Bakery;
 import zarvis.bakery.models.Order;
 import zarvis.bakery.utils.Util;
 
 public class ProcessOrderBehaviour extends CyclicBehaviour {
+	
+	private Logger logger = LoggerFactory.getLogger(ProcessOrderBehaviour.class);
 	private Map<Integer, String> orderAggregation = new TreeMap<Integer, String>();
 	private Bakery bakery;
 
 	public ProcessOrderBehaviour(Bakery bakery) {
+
+
 		this.bakery = bakery;
 	}
 	@Override
 	public void action() {
 
 		try{
-			ACLMessage msg = myAgent.receive();
-			if (msg != null) {
-				String title = msg.getContent();
-				//  get the orderID from the message
-				String[] titleparts = title.split(" ");
-				// store orderID
+			ACLMessage message = myAgent.receive();
+			if (message == null) {
+				block();
+			}
+
+			else if (message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL &&
+					message.getConversationId().equals("inform-product-to-kneeding-machine-manager")){
+				logger.info("Order {} stored in {} successfully",message.getContent(),message.getSender().getName());
+			}
+
+			else if (message.getPerformative() == ACLMessage.CFP) {
+				String[] titleparts = message.getContent().split(" ");
 				String orderID = titleparts[0];
+
 				Order order = Util.getWrapper().getOrderById(orderID);
 
+				ACLMessage reply = message.createReply();
+
 				if(!bakery.hasAllProducts(order)){
-					System.out.println("All products not found in our bakery " + bakery.getName());
-					ACLMessage reply = msg.createReply(); 
-					reply.setPerformative(ACLMessage.REFUSE); 
+					reply.setPerformative(ACLMessage.REFUSE);
+					logger.warn("All products not found in our bakery " + bakery.getName());
 					reply.setContent("All products not found in our bakery " + bakery.getName()); 
-					reply.setConversationId("customer request"); 
-					System.out.println("order placed"); 
+					reply.setConversationId("customer request");  
 					myAgent.send(reply); 
 
 				} else {
@@ -54,39 +69,30 @@ public class ProcessOrderBehaviour extends CyclicBehaviour {
 						this.orderAggregation.put(time, order.getGuid()); 
 					}
 
-					ACLMessage reply = msg.createReply();
 					reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
 					reply.setContent("request accepted");
 					reply.setConversationId("customer request");
 					myAgent.send(reply);
-
-					DFAgentDescription template = new DFAgentDescription();
-					ServiceDescription sd = new ServiceDescription();
-					sd.setType("KneedingMachineManager");
-					template.addServices(sd);
-
-					try {
-						DFAgentDescription[] result = DFService.search(myAgent, template);
-						AID[] kneedingMachineManagerAgent = (new AID[result.length]);
-
-						AID kneedingmachinemanager = result[0].getName();
-
-						// Send the cfp (call for proposal) to all sellers
-						ACLMessage cfp = new ACLMessage(ACLMessage.INFORM);
-						cfp.addReceiver(kneedingmachinemanager);
-
-						cfp.setContent(orderID);
-						cfp.setConversationId("inform-product-to-kneeding-machine-manager");
-						cfp.setReplyWith("inform"+System.currentTimeMillis()); // Unique value
-						myAgent.send(cfp);
-
-					} catch (FIPAException fe) {
-						fe.printStackTrace();
-					}
+					informKneedingManager(orderID);
 				}
 
-			}				
+			}
 		}
 		catch (Exception e) {e.printStackTrace(); }			
+	}
+
+	private void informKneedingManager(String orderID){
+		AID kneedingmachinemanager = Util.searchInYellowPage(myAgent,"KneedingMachineManager")[0].getName();
+
+		ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
+
+		inform.addReceiver(kneedingmachinemanager);
+		inform.setContent(orderID);
+		inform.setConversationId("inform-product-to-kneeding-machine-manager");
+		inform.setReplyWith("inform"+System.currentTimeMillis()); // Unique value
+
+		myAgent.send(inform);
+		logger.info("order sent to kneeding manager : {}",kneedingmachinemanager.getName());
+
 	}
 }

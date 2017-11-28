@@ -15,9 +15,9 @@ public class Bakery {
 	private List<Product> products;
 	private List<Truck>  trucks;
 	
-	public Product getProduct(String id){
+	public Product getProduct(String guid){
 		for (Product product : products) {
-			if (product.getId().equals(id)) {
+			if (product.getGuid().equals(guid)) {
 				return product;
 			}
 		}
@@ -85,7 +85,7 @@ public class Bakery {
 	}
 	
 	public List<String> getProductIds(){
-		return getProducts().stream().map(Product::getId).collect(Collectors.toList());
+		return getProducts().stream().map(Product::getGuid).collect(Collectors.toList());
 	}
 	
 	@Override

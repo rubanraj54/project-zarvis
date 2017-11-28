@@ -1,4 +1,7 @@
 package zarvis.bakery.agents;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -6,8 +9,11 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import zarvis.bakery.behaviors.bakery.ProcessOrderBehaviour;
 import zarvis.bakery.models.Bakery;
+import zarvis.bakery.utils.Util;
 
 public class BakeryAgent extends Agent {
+	
+	private Logger logger = LoggerFactory.getLogger(BakeryAgent.class);
 	private Bakery bakery;
 	
 	public BakeryAgent(Bakery bakery){
@@ -16,27 +22,8 @@ public class BakeryAgent extends Agent {
 
 	@Override
 	protected void setup() {
-		System.out.println("....... Bakery "+this.getAID().getName());
 
-		// Create agent description and set AID 
-		DFAgentDescription agentDescription = new DFAgentDescription();
-		agentDescription.setName(getAID());
-
-		// Create service description and set type and bakery name
-		ServiceDescription serviceDescription = new ServiceDescription();
-		serviceDescription.setType("bakery");
-		serviceDescription.setName(bakery.getName());
-
-		// add the service description to this agent
-		agentDescription.addServices(serviceDescription);
-
-		// Now add this agent description to yellow pages, so that other agents can identify this agent
-		try {
-			DFService.register(this, agentDescription);
-			System.out.println("Bakery agent is added to yellow pages");
-		} catch (FIPAException e) {
-			e.printStackTrace();
-		}
+		Util.registerInYelloPage(this,"BakeryService",bakery.getName());
 		
 		addBehaviour(new ProcessOrderBehaviour(bakery));
 	}
