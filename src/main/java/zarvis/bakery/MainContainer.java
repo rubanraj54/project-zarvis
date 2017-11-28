@@ -8,7 +8,7 @@ import jade.util.leap.Properties;
 import jade.wrapper.AgentContainer;
 import zarvis.bakery.agents.BakeryAgent;
 import zarvis.bakery.agents.CustomerAgent;
-import zarvis.bakery.agents.KneedingMachineManager;
+import zarvis.bakery.agents.manager.KneedingMachineManager;
 import zarvis.bakery.models.Bakery;
 import zarvis.bakery.models.BakeryJsonWrapper;
 import zarvis.bakery.models.Customer;

@@ -1,4 +1,4 @@
-package zarvis.bakery.agents;
+package zarvis.bakery.agents.manager;
 
 import jade.core.Agent;
 

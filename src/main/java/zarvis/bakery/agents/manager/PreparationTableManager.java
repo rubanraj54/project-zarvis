@@ -1,8 +1,8 @@
-package zarvis.bakery.agents;
+package zarvis.bakery.agents.manager;
 
 import jade.core.Agent;
 
-public class BakingManager extends Agent{
+public class PreparationTableManager extends Agent{
 	
 	@Override
 	protected void setup() {
