@@ -31,6 +31,12 @@ public class KneedingMachinesAvailabilityBehavior extends CyclicBehaviour {
 
     @Override
     public void action() {
+//        MessageTemplate messageTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("available-kneeding-machine"),
+//                MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
+//        ACLMessage message = myAgent.receive(messageTemplate);
+//        if (message != null){
+//            logger.info("request for next available kneeding machine is received");
+//        }
         switch (step) {
             case 0:
                 if (requestKneedingMachineAvailability()) {
@@ -40,17 +46,24 @@ public class KneedingMachinesAvailabilityBehavior extends CyclicBehaviour {
                 }
                 break;
             case 1:
-                ACLMessage message = myAgent.receive(mt);
-                if (message != null) {
-                    if (message.getPerformative() == CustomMessage.RESPONSE_STATUS && message.getConversationId().equals("kneeding-machine-status")) {
-                        if (message.getContent().equals("Available")) {
-                            availableKneedingMachines.add(message.getSender().getName());
+                ACLMessage statusmessage = myAgent.receive(mt);
+                if (statusmessage != null) {
+                    if (statusmessage.getPerformative() == CustomMessage.RESPONSE_STATUS && statusmessage.getConversationId().equals("kneeding-machine-status")) {
+                        if (statusmessage.getContent().equals("Available")) {
+                            availableKneedingMachines.add(statusmessage.getSender().getName());
+                        }
+                    }
+
+                    if (statusmessage.getPerformative() == ACLMessage.REQUEST && statusmessage.getConversationId().equals("next-available-kneeding-machine")) {
+                        if (statusmessage.getContent().equals("Available")) {
+                            availableKneedingMachines.add(statusmessage.getSender().getName());
                         }
                     }
 
                 } else {
                     block(blockingTime);
                     step = 0;
+                    logger.info(availableKneedingMachines.toString());
                 }
                 break;
         }

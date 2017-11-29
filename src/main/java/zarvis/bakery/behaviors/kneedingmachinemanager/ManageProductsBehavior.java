@@ -31,22 +31,23 @@ public class ManageProductsBehavior extends CyclicBehaviour{
                 orderList.add(order);
                 logger.info("New order added to kneeding machine manager list {}",order);
                 Util.sendReply(myAgent,message,ACLMessage.ACCEPT_PROPOSAL,order.getGuid(),"inform-product-to-kneeding-machine-manager");
+                logger.info(orderList.toString());
             }
 
-            if(message.getPerformative() == ACLMessage.REQUEST && message.getConversationId().equals("next-product-request")){
-                ACLMessage reply = message.createReply();
-                if(nextProducts.size() == 0){
-                    if (orderList.size() == 0){
-                        Util.sendReply(myAgent,message,ACLMessage.REFUSE,"No products available for kneeding","next-product-request");
-                    } else {
-                        currentOrder = orderList.get(0);
-                        nextProducts = new ArrayList<>(currentOrder.getProducts().keySet());
-                    }
-                } else {
-                    Util.sendReply(myAgent,message,CustomMessage.RESPONSE,currentOrder.getGuid() + " " + nextProducts.get(0),
-                            "next-product-request");
-                }
-            }
+//            if(message.getPerformative() == ACLMessage.REQUEST && message.getConversationId().equals("next-product-request")){
+//                if(nextProducts.size() == 0){
+//                    if (orderList.size() == 0){
+//                        Util.sendReply(myAgent,message,ACLMessage.REFUSE,"No products available for kneeding","next-product-request");
+//                    } else {
+//                        currentOrder = orderList.get(0);
+//                        nextProducts = new ArrayList<>(currentOrder.getProducts().keySet());
+//                        orderList.remove(0);
+//                        Util.sendReply(myAgent,message,CustomMessage.RESPONSE,currentOrder.getGuid() + " " + nextProducts.get(0),
+//                                "next-product-request");
+//                        nextProducts.remove(0);
+//                    }
+//                }
+//            }
         } else {
 		    block();
         }

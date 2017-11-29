@@ -3,6 +3,7 @@ package zarvis.bakery.utils;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.*;
 
 import com.google.gson.Gson;
 
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import zarvis.bakery.agents.BakeryAgent;
 import zarvis.bakery.messages.CustomMessage;
 import zarvis.bakery.models.BakeryJsonWrapper;
+import zarvis.bakery.utils.ValueComparatorAscending;
 
 public class Util {
 
@@ -88,6 +90,7 @@ public class Util {
 		message.setConversationId(conversationId);
 		message.setContent(content);
 		agent.send(message);
+//		waitForSometime(100);
 	}
 
 	public static void waitForSometime(long milliseconds) {
@@ -96,6 +99,24 @@ public class Util {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static List<Map.Entry<String, Integer>> doAggregation(HashMap<String, Integer> value){
+		List<Map.Entry<String, Integer>> entries = new ArrayList<>(value.entrySet());
+		Collections.sort(entries, new Comparator<Map.Entry<String, Integer>>() {
+			public int compare(final Map.Entry<String, Integer> e1, final Map.Entry<String, Integer> e2) {
+				return e1.getValue().compareTo(e2.getValue());
+			}
+		});
+
+		return entries;
+	}
+
+	public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map){
+		Comparator<String> comparator = new ValueComparatorAscending(map);
+		TreeMap<String, Integer> result = new TreeMap<String, Integer>(comparator);
+		result.putAll(map);
+		return result;
 	}
 
 }

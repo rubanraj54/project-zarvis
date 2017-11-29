@@ -123,6 +123,21 @@
       "guid": "order-003",
       "customer_id": "Citadel Cafe",
       "order_date": {
+        "day": 2,
+        "hour": 12
+      },
+      "delivery_date": {
+        "day": 1,
+        "hour": 12
+      },
+      "products": {
+        "bagel": 6
+      }
+    },
+    {
+      "guid": "order-004",
+      "customer_id": "Citadel Cafe",
+      "order_date": {
         "day": 1,
         "hour": 12
       },

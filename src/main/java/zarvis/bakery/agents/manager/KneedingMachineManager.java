@@ -12,6 +12,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import zarvis.bakery.agents.BakeryAgent;
 import zarvis.bakery.behaviors.kneedingmachinemanager.KneedingMachinesAvailabilityBehavior;
 import zarvis.bakery.behaviors.kneedingmachinemanager.ManageProductsBehavior;
+import zarvis.bakery.behaviors.kneedingmachinemanager.SendProductsToKneedingMachineBehavior;
 import zarvis.bakery.messages.CustomMessage;
 import zarvis.bakery.models.Bakery;
 import zarvis.bakery.utils.Util;
@@ -33,16 +34,10 @@ public class KneedingMachineManager extends Agent {
 
 
 		addBehaviour(new ManageProductsBehavior());
-		addBehaviour(new KneedingMachinesAvailabilityBehavior());
+//		addBehaviour(new KneedingMachinesAvailabilityBehavior());
+		Util.waitForSometime(2000);
+		addBehaviour(new SendProductsToKneedingMachineBehavior());
 
-//		DFAgentDescription[] kneedingMachines = Util.searchInYellowPage(this,"KneedingMachineAgent");
-//
-//		for(DFAgentDescription kneedingMachine : kneedingMachines) {
-//			ACLMessage request = new ACLMessage(CustomMessage.REQUEST_STATUS);
-//			request.addReceiver(kneedingMachine.getName());
-//			request.setConversationId("kneeding-machine-availability");
-//			this.send(request);
-//		}
 
 	}
 }

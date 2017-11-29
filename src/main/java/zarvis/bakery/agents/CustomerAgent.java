@@ -1,10 +1,6 @@
 package zarvis.bakery.agents;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 
 import org.slf4j.Logger;
@@ -35,39 +31,35 @@ public class CustomerAgent extends Agent {
 				this.orderAggregation.put(order.getGuid(), time); 
 			}
 		}
+		logger.info(orders.toString());
 	}
 	
-	public List<Entry<String, Integer>> doAggregation(){
-		 List<Entry<String, Integer>> entries = new ArrayList<Entry<String, Integer>>(this.orderAggregation.entrySet());
-		 Collections.sort(entries, new Comparator<Entry<String, Integer>>() {
-			    public int compare(final Entry<String, Integer> e1, final Entry<String, Integer> e2) {
-			      return e1.getValue().compareTo(e2.getValue());
-			    }
-		});
 
-		return entries;
-	}
 	
 	@Override
 	protected void setup() {
-		logger.info("Hi I'm the Customer agent, my name is:"+this.getAID().getName());
 
 		Util.registerInYellowPage(this,"Customer",customer.getGuid());
+		logger.info("Hi I'm the Customer agent, my name is:"+this.getAID().getName());
 
-		List<Entry<String, Integer>> entries = doAggregation();
-		int timeDiff =0;
-		for (final Entry<String, Integer> entry : entries) {
+		TreeMap<String, Integer> aggregatedOrders = Util.sortMapByValue(orderAggregation);
 
-			try {
-				Thread.sleep(entry.getValue()-timeDiff);
-				timeDiff = entry.getValue();
-				addBehaviour(new RequestPerformerBehavior(customer.getName(),entry.getKey()));
-			} 
-			catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		logger.info(aggregatedOrders.toString());
+
+//		addBehaviour(new RequestPerformerBehavior(customer,aggregatedOrders));
+
+//		int timeDiff =0;
+//		for (final Entry<String, Integer> entry : entries) {
+//
+//			try {
+//				Thread.sleep(entry.getValue()-timeDiff);
+//				timeDiff = entry.getValue();
+//			}
+//			catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 
 	}
 	

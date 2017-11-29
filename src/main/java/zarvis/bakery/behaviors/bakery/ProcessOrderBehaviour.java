@@ -40,6 +40,8 @@ public class ProcessOrderBehaviour extends CyclicBehaviour {
 
 			else if (message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL &&
 					message.getConversationId().equals("inform-product-to-kneeding-machine-manager")){
+
+
 				logger.info("Order {} stored in {} successfully",message.getContent(),message.getSender().getName());
 			}
 
@@ -71,25 +73,28 @@ public class ProcessOrderBehaviour extends CyclicBehaviour {
 
 				Util.sendReply(myAgent,message,ACLMessage.CONFIRM,"Order accepted","place-order");
 				logger.info("order accepted");
-				informKneedingManager(orderID);
-
+				informKneedingManager();
 			}
 		}
 		catch (Exception e) {e.printStackTrace(); }			
 	}
 
-	private void informKneedingManager(String orderID){
+	private void informKneedingManager(){
 		AID kneedingmachinemanager = Util.searchInYellowPage(myAgent,"KneedingMachineManager")[0].getName();
 
 		ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
 
 		inform.addReceiver(kneedingmachinemanager);
-		inform.setContent(orderID);
+		String orderId = orderAggregation.get(orderAggregation.keySet().toArray()[0]);
+		inform.setContent(orderId );
 		inform.setConversationId("inform-product-to-kneeding-machine-manager");
 		inform.setReplyWith("inform"+System.currentTimeMillis()); // Unique value
 
 		myAgent.send(inform);
-		logger.info("order sent to kneeding manager : {}",kneedingmachinemanager.getName());
+
+		orderAggregation.values().remove(orderId);
+		logger.info("order {} sent to kneeding manager : {} ",orderId,kneedingmachinemanager.getName());
+
 
 	}
 }
