@@ -2,7 +2,15 @@ package zarvis.bakery.models;
 
 public class Product {
 
-	private String id;	
+	public String getGuid() {
+		return guid;
+	}
+
+	public void setGuid(String guid) {
+		this.guid = guid;
+	}
+
+	private String guid;
 			
 	private int dough_prep_time;	
 			
@@ -25,14 +33,6 @@ public class Product {
 	private int production_cost;
 			
 	private int sales_price	;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public int getDough_prep_time() {
 		return dough_prep_time;
@@ -124,7 +124,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", dough_prep_time=" + dough_prep_time + ", resting_time=" + resting_time
+		return "Product [guid=" + guid + ", dough_prep_time=" + dough_prep_time + ", resting_time=" + resting_time
 				+ ", item_prep_time=" + item_prep_time + ", breads_per_oven=" + breads_per_oven + ", baking_time="
 				+ baking_time + ", baking_temp=" + baking_temp + ", cooling_rate=" + cooling_rate + ", boxing_temp="
 				+ boxing_temp + ", breads_per_box=" + breads_per_box + ", production_cost=" + production_cost

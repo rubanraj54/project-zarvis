@@ -15,6 +15,15 @@ public class Bakery {
 	private List<Product> products;
 	private List<Truck>  trucks;
 	
+	public Product getProduct(String guid){
+		for (Product product : products) {
+			if (product.getGuid().equals(guid)) {
+				return product;
+			}
+		}
+		return null;
+	}
+	
 	public String getGuid() {
 		return guid;
 	}
@@ -64,19 +73,20 @@ public class Bakery {
 		this.trucks = trucks;
 	}
 	
-	public boolean hasAllProducts(Order order) {
+	public int missingProductCount(Order order) {
 		List<String> productids = getProductIds();
+		int missingProductCount = 0;
 		for(String id : order.getProducts().keySet()){
 			if(!productids.contains(id)) {
-				return false;
+				missingProductCount++;
 			}
 		}
-		return true;
+		return missingProductCount;
 		
 	}
 	
 	public List<String> getProductIds(){
-		return getProducts().stream().map(Product::getId).collect(Collectors.toList());
+		return getProducts().stream().map(Product::getGuid).collect(Collectors.toList());
 	}
 	
 	@Override
