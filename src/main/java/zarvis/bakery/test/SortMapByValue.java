@@ -17,9 +17,8 @@ public class SortMapByValue {
 
         TreeMap<String, Integer> sortedMap = sortMapByValue(map);
         System.out.println(sortedMap);
-
-        sortedMap.remove("b");
-        System.out.println(sortedMap);
+        map.put("ruban",5);
+        System.out.println(sortMapByValue(map));
     }
 
     public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map){
