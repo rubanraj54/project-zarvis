@@ -13,11 +13,10 @@ class ValueComparator implements Comparator<String> {
     }
 
     @Override
-    public int compare(String s1, String s2) {
-        if(map.get(s1) <= map.get(s2)){
-            return -1;
-        }else{
-            return 1;
-        }
+    public int compare(String a, String b) {
+        int cmp = map.get(a).compareTo(map.get(b));
+        if (cmp == 0)
+            cmp = a.compareTo(b);
+        return cmp;
     }
 }

@@ -71,7 +71,7 @@ public class KneedingMachinesAvailabilityBehavior extends CyclicBehaviour {
 
     public boolean requestKneedingMachineAvailability() {
 
-        DFAgentDescription[] kneedingMachines = Util.searchInYellowPage(myAgent, "KneedingMachineAgent");
+        DFAgentDescription[] kneedingMachines = Util.searchInYellowPage(myAgent, "KneedingMachineAgent",null);
 
         if (kneedingMachines.length == 0)
             return false;

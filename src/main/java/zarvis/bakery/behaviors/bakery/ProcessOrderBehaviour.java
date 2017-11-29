@@ -52,7 +52,7 @@ public class ProcessOrderBehaviour extends CyclicBehaviour {
 				Order order = Util.getWrapper().getOrderById(orderID);
 
 				Util.sendReply(myAgent,message,ACLMessage.PROPOSE,
-						String.valueOf(bakery.missingProductCount(order)),"place-order");
+						bakery.getGuid() +" "+String.valueOf(bakery.missingProductCount(order)),"place-order");
 
 
 			} else if (message.getPerformative() == ACLMessage.ACCEPT_PROPOSAL && message.getConversationId().equals("place-order")) {
@@ -71,16 +71,16 @@ public class ProcessOrderBehaviour extends CyclicBehaviour {
 					this.orderAggregation.put(time, order.getGuid());
 				}
 
-				Util.sendReply(myAgent,message,ACLMessage.CONFIRM,"Order accepted","place-order");
-				logger.info("order accepted");
-				informKneedingManager();
+				Util.sendReply(myAgent,message,ACLMessage.CONFIRM,bakery.getGuid()+" "+order.getGuid(),"place-order");
+				logger.info("order {} successfully received from {}",order.getGuid(),titleparts[1]);
+//				informKneedingManager();
 			}
 		}
 		catch (Exception e) {e.printStackTrace(); }			
 	}
 
 	private void informKneedingManager(){
-		AID kneedingmachinemanager = Util.searchInYellowPage(myAgent,"KneedingMachineManager")[0].getName();
+		AID kneedingmachinemanager = Util.searchInYellowPage(myAgent,"KneedingMachineManager",null)[0].getName();
 
 		ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
 

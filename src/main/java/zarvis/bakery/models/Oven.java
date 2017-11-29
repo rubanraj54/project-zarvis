@@ -2,14 +2,14 @@ package zarvis.bakery.models;
 
 public class Oven {
 	
-	private int guid;
+	private String guid;
 	private int cooling_rate;
 	private int heating_rate;
 	
-	public int getGuid() {
+	public String getGuid() {
 		return guid;
 	}
-	public void setGuid(int guid) {
+	public void setGuid(String guid) {
 		this.guid = guid;
 	}
 	public int getCooling_rate() {

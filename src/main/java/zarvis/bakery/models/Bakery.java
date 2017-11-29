@@ -1,5 +1,7 @@
 package zarvis.bakery.models;
 
+import jade.core.AID;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,13 +10,40 @@ public class Bakery {
 	private String guid;
 	private String name;
 	private Location location;
-	private int kneading_machines;
-	private int dough_prep_tables;
+	private AID aid;
 	
 	private List<Oven> ovens;
 	private List<Product> products;
 	private List<Truck>  trucks;
-	
+
+	private List<DoughPrepTable>  dough_prep_tables;
+
+	private List<KneedingMachine> kneading_machines;
+
+	public List<DoughPrepTable> getDough_prep_tables() {
+		return dough_prep_tables;
+	}
+
+	public void setDough_prep_tables(List<DoughPrepTable> dough_prep_tables) {
+		this.dough_prep_tables = dough_prep_tables;
+	}
+
+	public List<KneedingMachine> getKneading_machines() {
+		return kneading_machines;
+	}
+
+	public void setKneading_machines(List<KneedingMachine> kneading_machines) {
+		this.kneading_machines = kneading_machines;
+	}
+
+	public AID getAid() {
+		return aid;
+	}
+
+	public void setAid(AID aid) {
+		this.aid = aid;
+	}
+
 	public Product getProduct(String guid){
 		for (Product product : products) {
 			if (product.getGuid().equals(guid)) {
@@ -41,18 +70,6 @@ public class Bakery {
 	}
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-	public int getKneading_machines() {
-		return kneading_machines;
-	}
-	public void setKneading_machines(int kneading_machines) {
-		this.kneading_machines = kneading_machines;
-	}
-	public int getDough_prep_tables() {
-		return dough_prep_tables;
-	}
-	public void setDough_prep_tables(int dough_prep_tables) {
-		this.dough_prep_tables = dough_prep_tables;
 	}
 	public List<Oven> getOvens() {
 		return ovens;

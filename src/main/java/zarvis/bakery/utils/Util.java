@@ -26,7 +26,7 @@ public class Util {
 	private static Logger logger = LoggerFactory.getLogger(Util.class);
 	
 	public static BakeryJsonWrapper getWrapper(){
-		final String FILENAME = "src/main/config/sample-scenario.json";
+		final String FILENAME = "src/main/config/random-scenario.json";
 		BakeryJsonWrapper jsonwrapper = null;
 		try {
 			// read json file and convert them to objects
@@ -38,15 +38,19 @@ public class Util {
 		return jsonwrapper;
 	}
 
-	public static DFAgentDescription[] searchInYellowPage(Agent agent,String keyword){
+	public static DFAgentDescription[] searchInYellowPage(Agent agent,String type,String name){
 		DFAgentDescription agentDescription= new DFAgentDescription();
 		ServiceDescription serviceDescription = new ServiceDescription();
 
-		serviceDescription.setType(keyword);
+		serviceDescription.setType(type);
+		if (name != null){
+			serviceDescription.setName(name);
+		}
 		agentDescription.addServices(serviceDescription);
 
 		try {
-			return DFService.search(agent, agentDescription);
+			DFAgentDescription[] searchResult = DFService.search(agent, agentDescription);
+				return (searchResult.length != 0) ? searchResult : null;
 		} catch (FIPAException e) {
 			e.printStackTrace();
 			return null;
@@ -68,7 +72,6 @@ public class Util {
 		agentDescription.addServices(serviceDescription);
 		try {
 			DFService.register(agent, agentDescription);
-			logger.info("{} is added to yellow pages",name);
 			return true;
 		} catch (FIPAException e) {
 			e.printStackTrace();
@@ -101,16 +104,6 @@ public class Util {
 		}
 	}
 
-	public static List<Map.Entry<String, Integer>> doAggregation(HashMap<String, Integer> value){
-		List<Map.Entry<String, Integer>> entries = new ArrayList<>(value.entrySet());
-		Collections.sort(entries, new Comparator<Map.Entry<String, Integer>>() {
-			public int compare(final Map.Entry<String, Integer> e1, final Map.Entry<String, Integer> e2) {
-				return e1.getValue().compareTo(e2.getValue());
-			}
-		});
-
-		return entries;
-	}
 
 	public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map){
 		Comparator<String> comparator = new ValueComparatorAscending(map);
